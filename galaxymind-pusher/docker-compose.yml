@@ -1,0 +1,32 @@
+# No app_proxy service on purpose: no web UI, nothing listens. The only service sits on its own bridge network,
+# never on umbrel_main_network (the common file's "default" network is not attached because networks: is explicit).
+# No volumes: no RPC credentials, no Umbrel data dirs, no docker.sock. GM_HMAC_KEY / GM_WALLETS come from the
+# app's settings (custom environment), never from this repo or the image.
+version: "3.7"
+services:
+  pusher:
+    image: ghcr.io/galaxymind21/gm-umbrel-pusher@sha256:1f8ae5fff41cef148fc6f3c5439a8a2c7b6b771b126c62ad0d708e9cca2a21de
+    user: "65532:65532"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+    mem_limit: 64m
+    cpus: 0.25
+    pids_limit: 32
+    stop_grace_period: 5s
+    environment:
+      GM_SENDER: umbrel
+      GM_POOL_URL: http://host.docker.internal:2019/api
+      GM_INGEST_URL: https://gm-discord-bot.vercel.app/api/ingest
+      GM_INTERVAL: "60"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - gm_isolated
+    logging:
+      driver: json-file
+      options: { max-size: "1m", max-file: "2" }
+networks:
+  gm_isolated:
+    driver: bridge
