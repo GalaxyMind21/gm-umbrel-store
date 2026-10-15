@@ -5,7 +5,7 @@
 version: "3.7"
 services:
   pusher:
-    image: ghcr.io/galaxymind21/gm-umbrel-pusher@sha256:1f8ae5fff41cef148fc6f3c5439a8a2c7b6b771b126c62ad0d708e9cca2a21de
+    image: ghcr.io/galaxymind21/gm-umbrel-pusher@sha256:c4adc47ebf5303fd80648facafbc2addcaaf06c309a4c40e19d8606fa3d29fec
     user: "65532:65532"
     read_only: true
     cap_drop: [ALL]
