@@ -2,14 +2,14 @@ manifestVersion: 1
 id: galaxymind-pusher
 category: bitcoin
 name: Galaxy Mind Pusher
-version: "1.0.3"
+version: "1.0.4"
 tagline: Outbound-only Public Pool stats pusher for the Galaxy Mind Discord bot
 description: >-
   Reads the local Public Pool API every 60 seconds and sends an HMAC-signed, allowlisted snapshot
   of the configured customer wallets to the Galaxy Mind bot on Vercel. No web UI, no listening ports,
   not on umbrel_main_network, read-only filesystem, non-root, no capabilities.
   Configure GM_HMAC_KEY and GM_WALLETS in the app's settings (custom environment). There is nothing to open.
-releaseNotes: "Optional read-only local miner stats (off until configured)."
+releaseNotes: "Miner-stats hardening (subnet + deny list required, per-host deadline)."
 developer: Galaxy Mind
 website: https://github.com/GalaxyMind21/gm-umbrel-pusher
 dependencies: []
